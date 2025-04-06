@@ -18,6 +18,7 @@ const App = () => {
   const [botTyping, setBotTyping] = useState(""); // ストリーミング表示用のテキスト
   const [darkMode, setDarkMode] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false); // コピー成功時に Snackbar 表示用
+  //ダークモード定義
   const theme = createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
@@ -46,6 +47,7 @@ const App = () => {
       const response = await axios.post(API_URL, {
         contents: [{ role: "user", parts: [{ text: input }] }],
       });
+      //API通信中は回答生成中を表示する
       setLoading(false);
       const replyText =
         response.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
@@ -108,23 +110,22 @@ const App = () => {
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Paper style={{ minHeight: "100vh", padding: "16px" }} elevation={1}>
-          {/* <p>Gemini ChatBot 2.0flashに聞きたい事はございませんか？</p> */}
-          {loading ? 
-            <div>回答生成中</div>
-            : 
-            <p>Gemini ChatBot 2.0flashに聞きたい事はございませんか？</p>
-          }
+        <Paper style={{ minHeight: "100vh", padding: "5px" }} elevation={1}>
+          {loading ? (
+            <div className="answerText">回答生成中...</div>
+          ) : (
+            <p>Gemini ChatBot 2.0flash に聞きたい事はございませんか？</p>
+          )}
           <DarkModeIcon
             onClick={() => setDarkMode((prevMode) => !prevMode)}
             style={{ cursor: "pointer" }}
           />
           <div
             style={{
-              height: "500px",
-              overflowY: "auto",
-              border: "1px solid #ccc",
-              padding: "10px",
+              height: "450px",
+              overflowY: "clip",
+              border: "2px solid #d76868",
+              padding: "5px",
             }}
           >
             {messages.map((msg, index) => (
@@ -132,7 +133,9 @@ const App = () => {
                 key={index}
                 style={{ textAlign: msg.role === "user" ? "right" : "left" }}
               >
-                <strong>{msg.role === "user" ? "ユーザー" : "回答"}:</strong>{" "}
+                <strong>
+                  {msg.role === "user" ? "ユーザー質問" : "AI回答"}:
+                </strong>{" "}
                 <Divider />
                 {msg.text}
               </div>
@@ -142,18 +145,18 @@ const App = () => {
               <div style={{ textAlign: "left", fontStyle: "italic" }}>
                 <br />
                 <Divider />
-                <strong>回答:</strong> {botTyping}
+                <strong>AIの回答:</strong> {botTyping}
               </div>
             )}
           </div>
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: "9px" }}>
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="質問を入力"
               style={{ width: "80%", padding: "5px" }}
             />
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={1}>
               <Button
                 onClick={sendMessage}
                 variant="contained"
@@ -169,7 +172,7 @@ const App = () => {
                 color="primary"
                 startIcon={<CopyAllIcon />}
               >
-                回答コピー
+                回答をコピー
               </Button>
             </Stack>
             {/* Snackbar コンポーネント: コピー成功時の通知 */}

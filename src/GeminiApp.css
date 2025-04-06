@@ -2,5 +2,9 @@
   display: contents;
   text-decoration-line: none!important;
   color: #ab1515;
-  /* background-color: #333333; */
+}
+
+.answerText {
+  font-size: 20px;
+  color: #f50707;
 }
