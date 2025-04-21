@@ -6,11 +6,12 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SendIcon from "@mui/icons-material/Send";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
 import axios from "axios";
-
+//https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent?key
+// https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17?key=AIzaSyBQC9-rWXHJP_pM7xvnhKQag7ik0uZQ5Ek
 const App = () => {
-  //API関連2.0安定版に更新
+  //API関連2.5プレビュー版に更新
   const API_KEY = import.meta.env.VITE_API_KEY;
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent?key=${API_KEY}`;
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${API_KEY}`;
 
   const [messages, setMessages] = useState([]); // メッセージ履歴
   const [input, setInput] = useState(""); // ユーザー入力
@@ -45,7 +46,28 @@ const App = () => {
     try {
       
       const response = await axios.post(API_URL, {
-        contents: [{ role: "user", parts: [{ text: input }] }],
+        // 必須：プロンプト（role＋parts の配列）
+        contents: [
+          {
+            role: 'user',
+            parts: [{ text: input }],
+          },
+        ],
+        // ─────────────────────────────────────────────
+        // 任意：生成時の詳細パラメータ
+        // ─────────────────────────────────────────────
+        //temperature: 0.7,        // 0.0～1.0
+        //candidateCount: 1,       // 何件候補を生成するか
+        //topP: 0.9,               // nucleus sampling
+       // stopSequences: ['\n'],   // ここで改行で止める例
+        // safetySettings: [        // 不要なら省略可
+        //   {
+        //     category: 'CATEGORY_DEROGATORY',
+        //     threshold: 'BLOCKING',
+        //   },
+        //   // 他のカテゴリも設定可能
+        // ],
+    
       });
       //API通信中は回答生成中を表示する
       setLoading(false);
@@ -75,7 +97,7 @@ const App = () => {
         { role: "bot", text: "エラー: APIリクエストに失敗しました。" },
       ]);
       //  } finally {
-      //    setLoading(false);
+      
     }
   };
 
@@ -114,7 +136,7 @@ const App = () => {
           {loading ? (
             <div className="answerText">回答生成中...</div>
           ) : (
-            <p>Gemini ChatBot 2.0flash に聞きたい事はございませんか？</p>
+            <p>gemini 2.5 flash preview 04-17に聞きたい事はございませんか？</p>
           )}
           <DarkModeIcon
             onClick={() => setDarkMode((prevMode) => !prevMode)}
