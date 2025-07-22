@@ -14,7 +14,7 @@ import axios from "axios";
 const App = () => {
   //API関連2.5プレビュー版に更新
   const API_KEY = import.meta.env.VITE_API_KEY;
-  const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+  const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent?key=${API_KEY}`;
 
   const [messages, setMessages] = useState([]); // メッセージ履歴
   const [input, setInput] = useState(""); // ユーザー入力
@@ -139,7 +139,7 @@ const App = () => {
           {loading ? (
             <div className="answerText">回答生成中...</div>
           ) : (
-            <p>gemini2.5-flashに聞きたい事はございませんか？</p>
+            <p>gemini2.5-proに聞きたい事はございませんか？</p>
           )}
           <DarkModeIcon
             onClick={() => setDarkMode((prevMode) => !prevMode)}
