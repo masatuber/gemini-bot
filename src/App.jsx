@@ -6,12 +6,15 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SendIcon from "@mui/icons-material/Send";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
 import axios from "axios";
-//https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent?key
-// https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17?key=AIzaSyBQC9-rWXHJP_pM7xvnhKQag7ik0uZQ5Ek
+//https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent?key=AIzaSyBQC9-rWXHJP_pM7xvnhKQag7ik0uZQ5Ek
+// https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-001:generateContent?key=AIzaSyBQC9-rWXHJP_pM7xvnhKQag7ik0uZQ5Ek
+//models/gemini-2.5-flash
+//  https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent?key=AIzaSyBQC9-rWXHJP_pM7xvnhKQag7ik0uZQ5Ek
+// https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key
 const App = () => {
   //API関連2.5プレビュー版に更新
   const API_KEY = import.meta.env.VITE_API_KEY;
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${API_KEY}`;
+  const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
 
   const [messages, setMessages] = useState([]); // メッセージ履歴
   const [input, setInput] = useState(""); // ユーザー入力
@@ -136,7 +139,7 @@ const App = () => {
           {loading ? (
             <div className="answerText">回答生成中...</div>
           ) : (
-            <p>gemini 2.5 flash preview 04-17に聞きたい事はございませんか？</p>
+            <p>gemini2.5-flashに聞きたい事はございませんか？</p>
           )}
           <DarkModeIcon
             onClick={() => setDarkMode((prevMode) => !prevMode)}
