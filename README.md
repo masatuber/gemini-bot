@@ -1,5 +1,8 @@
 # React + Vite
 ダークモードの暗さも変更
+
+APIキーが認証されないため再取得必要
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
