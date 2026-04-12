@@ -11,7 +11,7 @@ import axios from "axios";
 const App = () => {
   //API関連2.5
   const API_KEY = import.meta.env.VITE_API_KEY;
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+  const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
 
   const [messages, setMessages] = useState([]); // メッセージ履歴
   const [input, setInput] = useState(""); // ユーザー入力
