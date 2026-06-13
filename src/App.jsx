@@ -96,7 +96,6 @@ const App = () => {
         ...prevMessages,
         { role: "bot", text: "エラー: APIリクエストに失敗しました。" },
       ]);
-      //  } finally {
       
     }
   };
@@ -104,10 +103,10 @@ const App = () => {
   // 最新の回答テキストをクリップボードにコピーする関数を追加
   const copyAnswerToClipboard = () => {
     // 最新の bot のメッセージを取得
-    const lastBotMessage = [...messages]
-      .reverse()
-      .find((msg) => msg.role === "bot");
-    if (lastBotMessage && lastBotMessage.text) {
+    const lastBotMessage = [...messages].reverse().find((msg) => msg.role === "bot");
+    //最新取得される  console.log(lastBotMessage) 
+
+    if (lastBotMessage.text && lastBotMessage) {
       // Clipboard API を使用してテキストをコピー
       navigator.clipboard
         .writeText(lastBotMessage.text)
